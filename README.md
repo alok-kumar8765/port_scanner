@@ -62,30 +62,187 @@ This toolkit focuses on **safe, legal, educational, and defensive use-cases only
 
 # 🏗 **Project Architecture**
 
-
+```
 /scanner
-│── main.py                 → Central controller
-│
-├── core/
-│   ├── tcp_scanner.py      → Multi-threaded TCP scanning
-│   ├── udp_scanner.py      → UDP scanning support
-│   ├── service_detect.py   → Detect known services
-│   ├── banner_grabber.py   → Grab service banners
-│   ├── host_scanner.py     → CIDR and multiple-host scanning
-│   ├── vulnerability_checks.py → Safe vulnerability checks
-│   └── report_writer.py    → Export JSON/CSV/HTML reports
-│
-├── gui/
-│   ├── tkinter_gui.py      → Tkinter-based GUI
-│   └── pyqt_gui.py         → PyQt-based modern GUI
-│
-└── utils/
-├── logger.py           → Logging setup
-└── helpers.py          → Helper tools (OS guess, utilities)
-
+  │── main.py                 → Central controller
+  │
+  ├── core/
+  │   ├── tcp_scanner.py      → Multi-threaded TCP scanning
+  │   ├── udp_scanner.py      → UDP scanning support
+  │   ├── service_detect.py   → Detect known services
+  │   ├── banner_grabber.py   → Grab service banners
+  │   ├── host_scanner.py     → CIDR and multiple-host scanning
+  │   ├── vulnerability_checks.py → Safe vulnerability checks
+  │   └── report_writer.py    → Export JSON/CSV/HTML reports
+  │
+  ├── gui/
+  │   ├── tkinter_gui.py      → Tkinter-based GUI
+  │   └── pyqt_gui.py         → PyQt-based modern GUI
+  │
+  └── utils/
+  ├── logger.py           → Logging setup
+  └── helpers.py          → Helper tools (OS guess, utilities)
+  
 ````
+---
+
+# ⭐ **FLOW DIAGRAMS + ER DIAGRAM + COMPLETE WIKI**
 
 ---
+
+# 🎯 **1. SYSTEM FLOW DIAGRAM (ASCII)**
+
+```
+                    +------------------+
+                    |     User Input   |
+                    +---------+--------+
+                              |
+                              v
+                    +------------------+
+                    |   Main Controller|
+                    |    (main.py)     |
+                    +---------+--------+
+                              |
+               +--------------+--------------+
+               |                             |
+               v                             v
+     +-------------------+        +--------------------+
+     | Host Expansion    |        |  Logging System    |
+     | (host_scanner.py) |        |   (logger.py)      |
+     +---------+---------+        +--------------------+
+               |
+               v
+     +---------------------+
+     |  Port Range Builder |
+     +---------+-----------+
+               |
+               v
+     +---------------------+
+     | Parallel Executor   |
+     |  (ThreadPool)       |
+     +---------+-----------+
+               |
+       +-------+--------+
+       |                |
+       v                v
++--------------+   +--------------+
+| TCP Scanner  |   | UDP Scanner  |
+| tcp_scanner  |   | udp_scanner  |
++------+-------+   +------+-------+
+       |                  |
+       v                  v
++--------------+   +--------------+
+| Service Detect|  | No Service   |
+| getservbyport |  |  Detection   |
++------+--------+   +-------------+
+       |
+       v
+ +---------------+
+ | Banner Grabber|
+ | banner_grabber|
+ +-------+-------+
+         |
+         v
+ +--------------------------+
+ |  Vulnerability Checker   |
+ | vulnerability_checks.py  |
+ +-----------+--------------+
+             |
+             v
+     +---------------------+
+     | Report Generator    |
+     | JSON / CSV / HTML   |
+     +-----------+---------+
+                 |
+                 v
+           +-----------+
+           |  OUTPUT   |
+           +-----------+
+```
+
+---
+
+# 🎯 **2. SYSTEM FLOW DIAGRAM (MERMAID)**
+
+```mermaid
+flowchart TD
+    A[User Input] --> B[Main Controller: main.py]
+
+    B --> C[Expand Hosts / CIDR]
+    B --> D[Logger]
+
+    C --> E[Build Port List]
+    E --> F[ThreadPool Executor]
+
+    F --> G[TCP Scanner]
+    F --> H[UDP Scanner]
+
+    G --> I[Service Detection]
+    I --> J[Banner Grabbing]
+    J --> K[Vulnerability Checks]
+
+    K --> L[Report Generator: JSON, CSV, HTML]
+    L --> M[Output Files]
+```
+
+---
+
+# 🎯 **3. ER DIAGRAM (MERMAID)**
+
+*(Shows how modules relate as entities)*
+
+```mermaid
+erDiagram
+
+    MAIN_CONTROLLER ||--|| HOST_SCANNER : uses
+    MAIN_CONTROLLER ||--|| TCP_SCANNER : controls
+    MAIN_CONTROLLER ||--|| UDP_SCANNER : controls
+    MAIN_CONTROLLER ||--|| LOGGER : logs
+    MAIN_CONTROLLER ||--|| REPORT_WRITER : generates
+
+    TCP_SCANNER ||--|| SERVICE_DETECT : identifies
+    TCP_SCANNER ||--|| BANNER_GRABBER : sendsrequest
+    BANNER_GRABBER ||--|| VULN_CHECKER : evaluates
+
+    HOST_SCANNER {
+        string target
+        string cidr_range
+    }
+
+    TCP_SCANNER {
+        string host
+        int port
+        string protocol
+    }
+
+    UDP_SCANNER {
+        string host
+        int port
+    }
+
+    SERVICE_DETECT {
+        int port
+        string detected_service
+    }
+
+    BANNER_GRABBER {
+        int port
+        string banner
+    }
+
+    VULN_CHECKER {
+        string banner
+        string[] vulnerabilities
+    }
+
+    REPORT_WRITER {
+        string report_type
+        json report_data
+    }
+```
+
+---
+
 
 # 🚀 **Features**
 
