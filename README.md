@@ -337,7 +337,7 @@ erDiagram
 # 📥 **Installation**
 
 ```bash
-git clone https://github.com/alok-kumar8765/port_scanner
+git clone https://github.com/alok-kumar8765/port_scanner.git
 cd port_scanner
 pip install -r requirements.txt
 ````
