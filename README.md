@@ -1,14 +1,19 @@
 ```
-# 
-#  ███╗   ██╗███████╗██████╗ ██████╗ ███████╗██████╗ 
-#  ████╗  ██║██╔════╝██╔══██╗██╔══██╗██╔════╝██╔══██╗
-#  ██╔██╗ ██║█████╗  ██████╔╝██████╔╝█████╗  ██████╔╝
-#  ██║╚██╗██║██╔══╝  ██╔══██╗██╔══██╗██╔══╝  ██╔══██╗
-#  ██║ ╚████║███████╗██║  ██║██║  ██║███████╗██║  ██║
-#  ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
-#
-#        ADVANCED NETWORK & PORT SCANNER TOOLKIT
-#
+ 
+  ███╗   ██╗███████╗██████╗ ██████╗ ███████╗██████╗ 
+  ████╗  ██║██╔════╝██╔══██╗██╔══██╗██╔════╝██╔══██╗
+  ██╔██╗ ██║█████╗  ██████╔╝██████╔╝█████╗  ██████╔╝
+  ██║╚██╗██║██╔══╝  ██╔══██╗██╔══██╗██╔══╝  ██╔══██╗
+  ██║ ╚████║███████╗██║  ██║██║  ██║███████╗██║  ██║
+  ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
+
+        ADVANCED NETWORK & PORT SCANNER TOOLKIT
+```
+---
+
+#         ADVANCED NETWORK & PORT SCANNER TOOLKIT
+
+## **Badges**
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
@@ -57,7 +62,6 @@ This toolkit focuses on **safe, legal, educational, and defensive use-cases only
 
 # 🏗 **Project Architecture**
 
-```
 
 /scanner
 │── main.py                 → Central controller
